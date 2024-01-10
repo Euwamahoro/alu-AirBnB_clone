@@ -827,38 +827,51 @@ class TestHBNBCommand_all(unittest.TestCase):
             self.assertIn("Review", output.getvalue().strip())
             self.assertNotIn("BaseModel", output.getvalue().strip())
 
-            from unittest.mock import patch
+    def test_all_single_object_dot_notation(self):
+        with patch("sys.stdout", new=StringIO()) as output:
+            self.assertFalse(HBNBCommand().onecmd("create BaseModel"))
+            self.assertFalse(HBNBCommand().onecmd("create User"))
+            self.assertFalse(HBNBCommand().onecmd("create State"))
+            self.assertFalse(HBNBCommand().onecmd("create Place"))
+            self.assertFalse(HBNBCommand().onecmd("create City"))
+            self.assertFalse(HBNBCommand().onecmd("create Amenity"))
+            self.assertFalse(HBNBCommand().onecmd("create Review"))
+        with patch("sys.stdout", new=StringIO()) as output:
+            self.assertFalse(HBNBCommand().onecmd("BaseModel.all()"))
+            self.assertIn("BaseModel", output.getvalue().strip())
+            self.assertNotIn("User", output.getvalue().strip())
+        with patch("sys.stdout", new=StringIO()) as output:
+            self.assertFalse(HBNBCommand().onecmd("User.all()"))
+            self.assertIn("User", output.getvalue().strip())
+            self.assertNotIn("BaseModel", output.getvalue().strip())
+        with patch("sys.stdout", new=StringIO()) as output:
+            self.assertFalse(HBNBCommand().onecmd("State.all()"))
+            self.assertIn("State", output.getvalue().strip())
+            self.assertNotIn("BaseModel", output.getvalue().strip())
+        with patch("sys.stdout", new=StringIO()) as output:
+            self.assertFalse(HBNBCommand().onecmd("City.all()"))
+            self.assertIn("City", output.getvalue().strip())
+            self.assertNotIn("BaseModel", output.getvalue().strip())
+        with patch("sys.stdout", new=StringIO()) as output:
+            self.assertFalse(HBNBCommand().onecmd("Amenity.all()"))
+            self.assertIn("Amenity", output.getvalue().strip())
+            self.assertNotIn("BaseModel", output.getvalue().strip())
+        with patch("sys.stdout", new=StringIO()) as output:
+            self.assertFalse(HBNBCommand().onecmd("Place.all()"))
+            self.assertIn("Place", output.getvalue().strip())
+            self.assertNotIn("BaseModel", output.getvalue().strip())
+        with patch("sys.stdout", new=StringIO()) as output:
+            self.assertFalse(HBNBCommand().onecmd("Review.all()"))
+            self.assertIn("Review", output.getvalue().strip())
+            self.assertNotIn("BaseModel", output.getvalue().strip())
 
-            class TestHBNBCommand(unittest.TestCase):
-                """
-                Unittests for the HBNB command interpreter.
-                """
-            
-                @patch("sys.stdout", new_callable=StringIO)
-                def test_all_single_object_dot_notation(self, mock_stdout):
-                    with mock_stdout:
-                        self.assertFalse(HBNBCommand().onecmd("create BaseModel"))
-                        self.assertFalse(HBNBCommand().onecmd("create User"))
-                        self.assertFalse(HBNBCommand().onecmd("create State"))
-                        self.assertFalse(HBNBCommand().onecmd("create Place"))
-                        self.assertFalse(HBNBCommand().onecmd("create City"))
-                        self.assertFalse(HBNBCommand().onecmd("create Amenity"))
-                        self.assertFalse(HBNBCommand().onecmd("create Review"))
-            
-                    with patch("sys.stdout", new_callable=StringIO) as output:
-                        self.assertFalse(HBNBCommand().onecmd("BaseModel.all()"))
-                        self.assertIn("BaseModel", output.getvalue().strip())
-                        self.assertNotIn("User", output.getvalue().strip())
-            
-                    # Repeat the above pattern for other test cases...
-            
-            class TestHBNBCommand_update(unittest.TestCase):
-                """
-                Unittests to test update from the HBNB command interpreter.
-                """
-            
-                @classmethod
-            
+
+class TestHBNBCommand_update(unittest.TestCase):
+    """
+        Unittests to test update from the HBNB command interpreter.
+    """
+
+    @classmethod
     def setUp(self):
         try:
             os.rename("file.json", "tmp")
