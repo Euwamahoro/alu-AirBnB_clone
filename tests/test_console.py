@@ -234,7 +234,7 @@ class TestHBNBCommandUpdate(unittest.TestCase):
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create Place")
             test_id = output.getvalue().strip()
-        test_cmd = f"Place.update({{"'0'"": 99.9}})".format(test_id)
+            test_cmd = f"Place.update({{'{0}': 99.9}})".format(test_id)
         self.assertFalse(HBNBCommand().onecmd(test_cmd))
         test_dict = storage.all()["Place.{test_id}"].__dict__
         self.assertEqual(99.9, test_dict["floaty"])
