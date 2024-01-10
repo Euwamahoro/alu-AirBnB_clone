@@ -12,11 +12,10 @@ attributes/methods for other classes
 class BaseModel:
     def __init__(self, *args, **kwargs):
         """Initialize"""
-        if len(kwargs)> 0:
+        if len(kwargs) > 0:
             for key, value in kwargs.items():
                 if key != '__class__':
-                    setattr(self, key, value)
-                    
+                    setattr(self, key, value)                    
                 if (key == "created_at" or key == "updated_at"):
                     value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
                     setattr(self, key, value)
@@ -25,8 +24,7 @@ class BaseModel:
             self.created_at = datetime.now()
             self.updated_at = self.created_at
             models.storage.new(self)
-            
-    def __str__(self):
+                def __str__(self):
         """returns string representation of an instance"""
         return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
 
