@@ -181,7 +181,7 @@ class TestHBNBCommandUpdate(unittest.TestCase):
                 HBNBCommand().onecmd(f"create {class_name}")
                 test_id = output.getvalue().strip()
             with patch("sys.stdout", new=StringIO()) as output:
-                test_cmd = f"{class_name}.update({{'{0}': None}})".format(test_id)
+                test_cmd = f"{class_name}.update({{"'0'": None}})".format(test_id)
                 self.assertFalse(HBNBCommand().onecmd(test_cmd))
                 self.assertEqual(correct, output.getvalue().strip())
 
@@ -234,7 +234,7 @@ class TestHBNBCommandUpdate(unittest.TestCase):
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create Place")
             test_id = output.getvalue().strip()
-        test_cmd = f"Place.update({{'{0}': 99.9}})".format(test_id)
+        test_cmd = f"Place.update({{"'0'"": 99.9}})".format(test_id)
         self.assertFalse(HBNBCommand().onecmd(test_cmd))
         test_dict = storage.all()["Place.{test_id}"].__dict__
         self.assertEqual(99.9, test_dict["floaty"])
@@ -263,14 +263,14 @@ class TestHBNBCommandUpdate(unittest.TestCase):
             test_id = output.getvalue().strip()
         test_cmd = f"update Place {test_id} my_dict {{'a': 1, 'b': 2}}"
         self.assertFalse(HBNBCommand().onecmd(test_cmd))
-        test_dict = storage.all()["Place.{test_id}"].__dict__
+        test_dict = storage.all()['Place.{test_id}'].__dict__
         self.assertEqual({'a': 1, 'b': 2}, test_dict["my_dict"])
 
     def test_update_valid_dict_attr_dot_notation(self):
         with patch("sys.stdout", new=StringIO()) as output:
             HBNBCommand().onecmd("create Place")
             test_id = output.getvalue().strip()
-        test_cmd = f"Place.update({{'{0}': {{'a': 1, 'b': 2}}}})".format(test_id)
+        test_cmd = f"Place.update({{"'0'": {{'a': 1, 'b': 2}}}})".format(test_id)
         self.assertFalse(HBNBCommand().onecmd(test_cmd))
         test_dict = storage.all()["Place.{test_id}"].__dict__
         self.assertEqual({'a': 1, 'b': 2}, test_dict["my_dict"])
