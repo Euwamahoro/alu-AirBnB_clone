@@ -4,7 +4,7 @@
     Define 'User' class
 """
 
-from models.user import User
+from models.model import BaseModel
 
 class User(BaseModel):
     """
