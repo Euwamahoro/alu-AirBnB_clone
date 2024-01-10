@@ -15,7 +15,7 @@ class User(BaseModel):
         first_name: string - empty string
         last_name: string - empty string
     """
-    def __init__(self, email, password, first_name, last_name):
+    def __init__(self, *args, **kwargs):
         """
         Initialize User instance.
         """
